@@ -35,9 +35,6 @@ export function InputServey(){
                     break;
             }
         }
-        else{
-            console.log('UNDEFIND');
-        }
     }
 
     return(
