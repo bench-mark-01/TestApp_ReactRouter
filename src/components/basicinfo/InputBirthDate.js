@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
-
-import {BirthYear, BirthMonth, BirthDate} from './Definition';
+import React, { useEffect, useState } from 'react';
+import {birthYear, birthMonth, birthDate} from './definition';
 
 export function InputBirthDate(){
     const [selectYear, setSelectYear] = useState({type: 'year', num: new Date().getFullYear()});
     const [selectMonth, setSelectMonth] = useState({type: 'month', num: 1});
     const [selectDate, setSelectDate] = useState();
+
+    const [birthYears, setBirthYears] = useState(birthYear());
+    const [birthMonths, setBirthMonths] = useState(birthMonth());
+    const [birthDates, setBirthDates ] = useState(birthDate(selectYear, selectMonth));
 
     const handleChange = e => {
         if(e){
@@ -33,6 +36,11 @@ export function InputBirthDate(){
         }
     };
 
+    useEffect(() => {
+        const changeDays = birthDate(selectYear, selectMonth);
+        setBirthDates(changeDays);
+    },[selectYear, selectMonth])
+
     return(
         <>
             <div className='field'>
@@ -44,8 +52,15 @@ export function InputBirthDate(){
                         <select
                             name = 'year'
                             onChange={handleChange}
+                            defaultValue = {selectYear}
                             >
-                            <BirthYear />
+                            {birthYears.map(year =>{
+                                return(
+                                    <option key={'Year:' + year.num} value={year.num}>
+                                        {year.num + year.jp }
+                                    </option>
+                                )
+                            })}
                         </select>
                     </div>
                     <label>
@@ -56,7 +71,13 @@ export function InputBirthDate(){
                             name = 'month'
                             onChange={handleChange}
                             >
-                            <BirthMonth />
+                            {birthMonths.map(month =>{
+                                return(
+                                    <option key={'Month:' + month} value={month}>
+                                        {month}
+                                    </option>
+                                )
+                            })}
                         </select>
                     </div>
                     <label>
@@ -67,7 +88,13 @@ export function InputBirthDate(){
                             name = 'date'
                             onChange={handleChange}
                             >
-                            <BirthDate selectYear = {selectYear.num} selectMonth = {selectMonth.num} />
+                            {birthDates.map(date => {
+                                return(
+                                    <option key={'Date:' + date} value={date}>
+                                        {date}
+                                    </option>
+                                )
+                            })}
                         </select>
                     </div>
                     <label>

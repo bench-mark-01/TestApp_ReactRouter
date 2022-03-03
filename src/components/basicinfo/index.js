@@ -1,4 +1,4 @@
-import React, { useState }from 'react';
+import React from 'react';
 import { GenderSelect } from './GenderSelect';
 import { InputBirthDate } from './InputBirthDate';
 import { PaginationBtn } from './PaginationBtn';

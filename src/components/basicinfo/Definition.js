@@ -1,5 +1,3 @@
-import React from 'react';
-
 function jpYear(year){
     const targetYear = new Date(year, 0, 1);
     const options = {year: 'numeric'};
@@ -7,7 +5,7 @@ function jpYear(year){
     return jp;
 }
 
-export function BirthYear(){
+export function birthYear(){
     const today = new Date();
     const thisYear = today.getFullYear();
     const birthYears = [];
@@ -19,48 +17,26 @@ export function BirthYear(){
         }
         birthYears.push(yearData);
     }
-    return(
-        birthYears.map(num =>{
-            return(
-                <option key={'Year:' + num.num} value={num.num}>
-                    {num.num + num.jp }
-                </option>
-            )
-        })
-    )
+    return birthYears;
 }
 
-export function BirthMonth(){
-    const birthMonths = [];
+export function birthMonth(){
+    const birthMonth = [];
     for(let i = 1; i<= 12; i++){
-        birthMonths.push(i);
+        birthMonth.push(i);
     }
-    return(
-        birthMonths.map(month =>{
-            return(
-                <option key={'Month:' + month} value={month}>
-                    {month}
-                </option>
-            )
-        })
-    )
+    return birthMonth;
 }
 
-export function BirthDate(props){
-    const lastDay = new Date(props.selectYear, props.selectMonth, 0).getDate();
-    let birthDate = [];
+export function birthDate(year, month){
+    console.log(year);
+    console.log(month);
+    const lastDay = new Date(year.num, month.num, 0).getDate();
+    const birthDates = [];
     for(let i = 1; i <= lastDay; i++){
-        birthDate.push(i);
+        birthDates.push(i);
     }
-    return(
-        birthDate.map(date =>{
-            return(
-                <option key={'Date:' + date} value={date}>
-                    {date}
-                </option>
-            )
-        })
-    )
+    return birthDates;
 }
 
 
