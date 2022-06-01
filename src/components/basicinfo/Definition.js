@@ -1,4 +1,4 @@
-function jpYear(year){
+export function jpYear(year){
     const targetYear = new Date(year, 0, 1);
     const options = {year: 'numeric'};
     const jp = targetYear.toLocaleDateString('ja-jp-u-ca-japanese', options);  
@@ -29,9 +29,7 @@ export function birthMonth(){
 }
 
 export function birthDate(year, month){
-    console.log(year);
-    console.log(month);
-    const lastDay = new Date(year.num, month.num, 0).getDate();
+    const lastDay = new Date(year, month, 0).getDate();
     const birthDates = [];
     for(let i = 1; i <= lastDay; i++){
         birthDates.push(i);

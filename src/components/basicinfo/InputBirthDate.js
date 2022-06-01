@@ -1,49 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import {birthYear, birthMonth, birthDate} from './definition';
+import React, { useEffect, useState, useContext } from 'react';
+import {birthYear, birthMonth, birthDate} from './Definition';
+import { basicInfoContext } from '../App';
 
 export function InputBirthDate(){
-    const [selectYear, setSelectYear] = useState({type: 'year', num: new Date().getFullYear()});
-    const [selectMonth, setSelectMonth] = useState({type: 'month', num: 1});
-    const [selectDate, setSelectDate] = useState();
-
-    const [birthYears, setBirthYears] = useState(birthYear());
-    const [birthMonths, setBirthMonths] = useState(birthMonth());
-    const [birthDates, setBirthDates ] = useState(birthDate(selectYear, selectMonth));
+    const [ basicinfo, setBasicInfo ] = useContext(basicInfoContext);
+    const by = birthYear();
+    const bm = birthMonth();
+    const [birthDates, setBirthDates ] = useState(birthDate(basicinfo.Year, basicinfo.month));
 
     const handleChange = e => {
         if(e){
             if(e.target.name === 'year'){
-                const year = {
-                    type: 'year',
-                    num: Number(e.target.value)
-                }
-                setSelectYear(year);
+                setBasicInfo({...basicinfo, year: e.target.value })
             }
             if(e.target.name === 'month'){
-                const month = {
-                    type: 'month',
-                    num: Number(e.target.value)
-                }
-                setSelectMonth(month);
+                setBasicInfo({...basicinfo, month: e.target.value })
             }
             if(e.target.name === 'date'){
-                const date = {
-                    type: 'date',
-                    num: Number(e.target.value)
-                }
-                setSelectDate(date);
+                setBasicInfo({...basicinfo, date: e.target.value })
             }
         }
     };
-
     useEffect(() => {
-        const changeDays = birthDate(selectYear, selectMonth);
+        const changeDays = birthDate(basicinfo.year, basicinfo.month);
         setBirthDates(changeDays);
-    },[selectYear, selectMonth])
-
+    },[basicinfo])
     return(
         <>
-            <div className='field'>
+            <div className='content'>
                 <label>
                     -生年月日-
                 </label>  
@@ -52,9 +36,9 @@ export function InputBirthDate(){
                         <select
                             name = 'year'
                             onChange={handleChange}
-                            defaultValue = {selectYear}
+                            defaultValue = {basicinfo.year}
                             >
-                            {birthYears.map(year =>{
+                            {by.map(year =>{
                                 return(
                                     <option key={'Year:' + year.num} value={year.num}>
                                         {year.num + year.jp }
@@ -71,7 +55,7 @@ export function InputBirthDate(){
                             name = 'month'
                             onChange={handleChange}
                             >
-                            {birthMonths.map(month =>{
+                            {bm.map(month =>{
                                 return(
                                     <option key={'Month:' + month} value={month}>
                                         {month}

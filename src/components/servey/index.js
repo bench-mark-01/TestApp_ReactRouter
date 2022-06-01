@@ -1,19 +1,18 @@
 import React from 'react';
 import { InputServey } from './InputServey';
-import { PaginationBtn } from './PaginationBtn';
+import { PageNationBtn } from './PageNationBtn';
 
 export function ServeyHeader(){
     return(
         <>
-            <span class="tag is-primary">STEP2</span>
+            <span className="tag is-primary">STEP2</span>
             <h1>
-                <i class="fas fa-chalkboard-teacher"></i>
-                ご相談内容をご記入ください
+                <i className="fas fa-chalkboard-teacher"></i>
+                アンケートにお答えください
             </h1>
         </>
     );
 };
-
 export function Servey(){
     return(
         <>
@@ -21,5 +20,4 @@ export function Servey(){
         </>
     );
 };
-
-export { PaginationBtn as ServeyPagination };
+export { PageNationBtn as ServeyPageNation };

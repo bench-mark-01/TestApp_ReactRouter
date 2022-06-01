@@ -1,45 +1,44 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { surveyContext } from '../App'
 
 export function InputServey(){
-
-    const [insured, setInsured] = useState();
-    const [hospital, setHospital] = useState();
-    const [medical, setMedical] = useState();
+    const [survey, setSurvey] = useContext(surveyContext)
 
     const handleChange = e => {
         if(e){
             switch(e.target.name){
                 case 'insured':
                     if(e.target.value === 'no'){
-                        setInsured('no');
+                        setSurvey({...survey, insured: 'いいえ'});
                     }
                     if(e.target.value === 'yes'){
-                        setInsured('yes');
+                        setSurvey({...survey, insured: 'はい'});
                     }
                     break;
+
                 case 'hospital':
                     if(e.target.value === 'no'){
-                        setHospital('no');
+                        setSurvey({...survey, hospital: 'いいえ'});
                     }
                     if(e.target.value === 'yes'){
-                        setHospital('yes');
+                        setSurvey({...survey, hospital: 'はい'});
                     }
                     break;
+
                 case 'medical':
                     if(e.target.value === 'no'){
-                        setMedical('no');
+                        setSurvey({...survey, medical: 'いいえ'});
                     }
                     if(e.target.value === 'yes'){
-                        setMedical('yes');
+                    setSurvey({...survey, medical: 'はい'});
                     }
                     break;
             }
         }
     }
-
     return(
         <>
-            <div className='field'>
+            <div className='content'>
                 <p>現在生命保険に加入されていますか？</p>
                 <form>
                 <label>はい
@@ -48,7 +47,7 @@ export function InputServey(){
                         onChange={handleChange}
                         type='radio' 
                         name='insured'
-                        checked={insured === 'yes'}    
+                        checked={survey.insured === 'はい'}    
                         />
                 </label>
                 <label>いいえ
@@ -57,12 +56,12 @@ export function InputServey(){
                         onChange={handleChange}
                         type='radio' 
                         name='insured'
-                        checked={insured === 'no'}    
+                        checked={survey.insured === 'いいえ'}    
                     />
                 </label>
                 </form>
             </div>
-            <div id='fade-in' className={ insured ? 'fade-in field':'none' }>
+            <div id='fade-in' className={ survey.insured ? 'fade-in content':'none' } >
                 <p>現在入院中ですか。または、最近3ヶ月以内に医師の診察・検査の結果、入院・手術を勧められたことはありますか？</p>
                 <form>
                 <label>はい
@@ -71,7 +70,7 @@ export function InputServey(){
                         onChange={handleChange}
                         type='radio' 
                         name='hospital'
-                        checked={hospital === 'yes'}/>
+                        checked={survey.hospital === 'はい'}/>
                 </label>
                 <label>いいえ
                     <input 
@@ -79,11 +78,11 @@ export function InputServey(){
                         onChange={handleChange}
                         type='radio' 
                         name='hospital'
-                        checked={hospital === 'no'}/>
+                        checked={survey.hospital === 'いいえ'}/>
                 </label>
                 </form>
             </div>
-            <div id='fade-in' className={ hospital ? 'fade-in field':'none' }>
+            <div id='fade-in' className={ survey.hospital ? 'fade-in content':'none' } >
                 <p>過去5年以内に、病気や怪我で、手術を受けたことまたは継続して7日以上の入院をしたことがありますか？</p>
                 <form>
                 <label>はい
@@ -92,7 +91,7 @@ export function InputServey(){
                         onChange={handleChange}
                         type='radio'    
                         name='medical'
-                        checked={medical === 'yes'}/>
+                        checked={survey.medical === 'はい'}/>
                 </label>
                 <label>いいえ
                     <input 
@@ -100,7 +99,7 @@ export function InputServey(){
                         onChange={handleChange}
                         type='radio' 
                         name='medical'
-                        checked={medical === 'no'}/>
+                        checked={survey.medical === 'いいえ'}/>
                 </label>
                 </form>
             </div>
