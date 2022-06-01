@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { basicInfoContext } from '../App'
 
 export function GenderSelect(){
-    
-    const [gender, setGender] = useState('male');
+    const [basicInfo, setBasicInfo] = useContext(basicInfoContext);
     const handleChange = e => {
         if(e){
-            setGender(e.target.value);
+            setBasicInfo({...basicInfo, gender: e.target.value})
         }
         else{
             console.log('UNDEFIND');
@@ -13,25 +13,25 @@ export function GenderSelect(){
     }
     return (
         <>
-            <div className='field'>
+            <div className='content'>
                 <p>
                     -性別-
                 </p>
                 <label>
                 <input
                     type='radio'
-                    value='male'
+                    value='男性'
                     onChange={handleChange}
-                    checked={gender === 'male'}
+                    checked={basicInfo.gender === '男性'}
                 />
                     男性
                 </label>
                 <label>
                 <input
                     type='radio'
-                    value='female'
+                    value='女性'
                     onChange={handleChange}
-                    checked={gender === 'female'}
+                    checked={basicInfo.gender === '女性'}
                 />
                 女性
                 </label>

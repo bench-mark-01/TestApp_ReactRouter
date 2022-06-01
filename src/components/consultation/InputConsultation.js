@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { consultationContext } from '../App';
 
 export function InputConsultation(){
+
+    const setConsultation = useContext(consultationContext);
+
+    const handleChange = e => {
+        if(e.target.value){
+            setConsultation(e.target.value);
+        }
+    }
     return(
         <>
-            <p>ーご相談内容ー</p>
-            <form action="">
-                <textarea class="textarea" placeholder="10 lines of textarea" rows="10"></textarea>
-            </form>
+            <div className='content'>
+                <p>-ご相談内容-</p>
+                <form action="">
+                    <textarea className="textarea" onChange={handleChange} placeholder="10 lines of textarea" rows="10"></textarea>
+                </form>
+            </div>
         </>
     );
 };
